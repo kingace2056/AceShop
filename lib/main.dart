@@ -1,4 +1,6 @@
+import 'package:aceshop/views/category/category_page.dart';
 import 'package:aceshop/views/home/my_homepage.dart';
+import 'package:aceshop/views/search/search_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +24,11 @@ class MyApp extends StatelessWidget {
           Theme.of(context).textTheme,
         ),
       ),
-      home: const MyHomePage(),
+      routes: {
+        '/': (context) => const MyHomePage(),
+        '/search': (context) => const SearchPage(),
+        '/category': (context) => const CategoryPage()
+      },
     );
   }
 }

@@ -1,7 +1,10 @@
 import 'package:aceshop/models/constraints/catrgories_temp.dart';
 import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/models/constraints/product_details_temp.dart';
+import 'package:aceshop/views/widgets/product_listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FeaturedProductView extends StatelessWidget {
   const FeaturedProductView({
@@ -17,36 +20,41 @@ class FeaturedProductView extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
                 'Featured Products',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(
-                'See all',
-                style: TextStyle(color: primary, fontWeight: FontWeight.w300),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed('/category');
+                },
+                child: Text(
+                  'See all',
+                  style: TextStyle(color: primary, fontWeight: FontWeight.w300),
+                ),
               )
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(10.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.2,
+            height: MediaQuery.of(context).size.height * 0.35,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 // physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                itemCount: categoryTemp.length,
+                itemCount: productDemo.length,
                 itemBuilder: ((context, index) {
-                  return SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.3,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [],
-                      ));
+                  return ProductListing(
+                    prodName: productDemo.keys.elementAt(index),
+                    prodImage: productDemo.values.elementAt(index),
+                    prodPrice: priceRatingDemo.keys.elementAt(index),
+                    prodRating: priceRatingDemo.values.elementAt(index),
+                    randIndex: index,
+                  );
                 })),
           ),
         ),

@@ -1,8 +1,9 @@
+import 'package:aceshop/models/constraints/constraints.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({
+class SearchHome extends StatelessWidget {
+  const SearchHome({
     Key? key,
   }) : super(key: key);
 
@@ -12,14 +13,13 @@ class SearchBar extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Expanded(
-          child: TextField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(borderSide: BorderSide.none),
-              hintText: 'Search Product name',
-            ),
+        Expanded(
+            child: Container(
+          child: Text(
+            'Search Product name',
+            style: TextStyle(color: secHalfGrey),
           ),
-        ),
+        )),
         IconButton(
             onPressed: () {},
             icon: const Icon(

@@ -8,8 +8,8 @@ const Color primaryWhite = Color(0xFFFFFFFF);
 // secondaries
 const Color secGreen = Color(0xFF3A9B7A);
 const Color secRed = Color(0xFFC93545);
-const Color secDarkGrey = Color(0xFFFAFAFA);
-const Color secHalfGrey = Color(0xFF838589);
+const Color secDarkGrey = Color(0xFF838589);
+const Color secHalfGrey = Color(0xFFC4C5C4);
 const Color secSoftGrey = Color(0xFFEDEDED);
 const Color secOffGrey = Color(0xFFFAFAFA);
 

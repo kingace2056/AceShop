@@ -1,5 +1,6 @@
 import 'package:aceshop/models/constraints/catrgories_temp.dart';
 import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class CatrgoryListView extends StatelessWidget {
@@ -15,15 +16,20 @@ class CatrgoryListView extends StatelessWidget {
           padding: const EdgeInsets.all(10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
-              Text(
+            children: [
+              const Text(
                 'Category ',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              Text(
-                'See all',
-                style: TextStyle(color: primary, fontWeight: FontWeight.w300),
-              )
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed('/category');
+                  },
+                  child: const Text(
+                    'See all',
+                    style:
+                        TextStyle(color: primary, fontWeight: FontWeight.w300),
+                  ))
             ],
           ),
         ),

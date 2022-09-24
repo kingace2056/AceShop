@@ -4,6 +4,8 @@ import 'package:aceshop/models/constraints/constraints.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+bool? termS = false;
+
 class SignUpScr extends StatefulWidget {
   const SignUpScr({super.key});
 
@@ -31,7 +33,7 @@ class _SignUpScrState extends State<SignUpScr> {
   final _email = '';
   final _pass = '';
   final _name = '';
-  bool termS = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +42,7 @@ class _SignUpScrState extends State<SignUpScr> {
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
-        padding: defpad + EdgeInsets.all(8),
+        padding: defpad + const EdgeInsets.all(8),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -55,7 +57,7 @@ class _SignUpScrState extends State<SignUpScr> {
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Text(
@@ -167,6 +169,7 @@ class _SignUpScrState extends State<SignUpScr> {
                           if (value == null) {
                             return 'Password can\'t be empty';
                           }
+                          return null;
                         },
                       ),
                     ],
@@ -175,19 +178,31 @@ class _SignUpScrState extends State<SignUpScr> {
                 const SizedBox(
                   height: 20,
                 ),
-                Row(
-                  children: [
-                    Radio(
-                      value: termS,
-                      onChanged: (value) {
-                        setState(() {
-                          termS = value!;
-                        });
-                      },
-                      groupValue: null,
-                    )
-                  ],
-                ),
+                CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    enableFeedback: true,
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'I agree to',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'terms and conditions',
+                              style: TextStyle(fontSize: 15),
+                            ))
+                      ],
+                    ),
+                    value: termS,
+                    onChanged: (value) {
+                      setState(() {
+                        termS = value;
+                      });
+                    }),
                 const SizedBox(
                   height: 20,
                 ),
@@ -207,7 +222,7 @@ class _SignUpScrState extends State<SignUpScr> {
                           // add navigator here
                         }
                       },
-                      child: Text('Sign Up'),
+                      child: const Text('Sign Up'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         foregroundColor: primaryWhite,

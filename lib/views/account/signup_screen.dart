@@ -204,6 +204,16 @@ class _SignUpScrState extends State<SignUpScr> {
                       });
                     }),
                 const SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: submitted == true && termS == false,
+                  child: Text(
+                    'Please accept terms and conditions ',
+                    style: TextStyle(color: secRed),
+                  ),
+                ),
+                const SizedBox(
                   height: 20,
                 ),
                 Center(

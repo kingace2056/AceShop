@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+String baseUrl = 'http://192.168.18.38:3000';
+
 const defpad = EdgeInsets.all(10.0);
 
 const Color primary = Color(0xff3669c9);

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aceshop/controllers/text_controller.dart';
 import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/models/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -30,6 +31,15 @@ class _LoginScreenState extends State<LoginScreen> {
   bool submitted = false;
   var _email = '';
   var _pass = '';
+  final AuthService authService = AuthService();
+  void signIn() {
+    authService.signInUser(
+      context: context,
+      email: _emailcontroller.text,
+      password: _pwcontroller.text,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         onChanged: ((value) => setState(() => _email)),
                         controller: _pwcontroller,
                         decoration: InputDecoration(
-                          errorText: submitted ? errorTextPw() : null,
+                          errorText:
+                              submitted ? 'Password cant be empty' : null,
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -156,9 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           submitted = true;
                         });
                         if (_formKey.currentState!.validate()) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
+                          signIn();
                         }
                       },
                       child: Text('Sign In'),
@@ -213,25 +222,6 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Can\'t be empty';
     }
     if (text.length < 4) {
-      return 'Too short';
-    }
-    // return null if the text is valid
-    return null;
-  }
-
-  String? errorTextPw() {
-    final RegExp regex = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
-    // at any time, we can get the text from _controller.value.text
-
-    String pwText = _pwcontroller.value.text;
-    if (!regex.hasMatch(pwText))
-      return 'Password Must contain Lowercase, Uppercase, Special character and atleast length of 6';
-    // Note: you can do your own custom validation here
-    // Move this logic this outside the widget for more testable code
-    if (pwText.isEmpty) {
-      return 'Can\'t be empty';
-    }
-    if (pwText.length < 4) {
       return 'Too short';
     }
     // return null if the text is valid

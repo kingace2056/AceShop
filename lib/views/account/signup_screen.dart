@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/models/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -20,7 +21,7 @@ class _SignUpScrState extends State<SignUpScr> {
   @override
   void dispose() {
     // TODO: implement dispose
-
+    _nameController.dispose();
     _emailcontroller.dispose();
     _pwcontroller.dispose();
     super.dispose();
@@ -33,6 +34,14 @@ class _SignUpScrState extends State<SignUpScr> {
   final _email = '';
   final _pass = '';
   final _name = '';
+  final AuthService authService = AuthService();
+  void signUp() {
+    authService.signUpUser(
+        context: context,
+        email: _emailcontroller.text,
+        password: _pwcontroller.text,
+        name: _nameController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -221,15 +230,12 @@ class _SignUpScrState extends State<SignUpScr> {
                     height: 40,
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           submitted = true;
                         });
                         if (_formKey.currentState!.validate()) {
-                          // ScaffoldMessenger.of(context).showSnackBar(
-                          //   const SnackBar(content: Text('Processing Data')),
-                          // );
-                          // add navigator here
+                          signUp();
                         }
                       },
                       child: const Text('Sign Up'),

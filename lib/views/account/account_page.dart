@@ -1,5 +1,13 @@
+import 'dart:developer';
+
 import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/models/services/auth_service.dart';
+import 'package:aceshop/models/usermodel/user_model.dart';
+import 'package:aceshop/providers/user_provider.dart';
+import 'package:aceshop/views/account/nologin.dart';
+import 'package:aceshop/views/account/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyAccount extends StatefulWidget {
   const MyAccount({super.key});
@@ -10,38 +18,19 @@ class MyAccount extends StatefulWidget {
 
 class _MyAccountState extends State<MyAccount> {
   @override
+  void initState() {
+    final AuthService authService = AuthService();
+    authService.getUserData(context: context);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: EdgeInsets.all(30),
-            height: 40,
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: primary, foregroundColor: primaryWhite),
-              onPressed: () {
-                Navigator.of(context).pushNamed('/login');
-              },
-              child: Text('Sign in'),
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.all(30),
-            height: 40,
-            width: MediaQuery.of(context).size.width * 0.45,
-            child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryOrange,
-                  foregroundColor: primaryWhite),
-              onPressed: () {},
-              child: Text('Sign Up'),
-            ),
-          ),
-        ],
-      ),
-    );
+    final user = Provider.of<UserProvider>(context).user;
+    log('${user.address} ${user.name} token ${user.token}');
+    return user.token.isNotEmpty
+        ? const UserPage()
+        : const AccountNotLoggedIn();
   }
 }

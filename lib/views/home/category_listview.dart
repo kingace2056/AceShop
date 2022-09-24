@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aceshop/models/constraints/catrgories_temp.dart';
 import 'package:aceshop/models/constraints/constraints.dart';
 import 'package:flutter/material.dart';
@@ -44,26 +46,32 @@ class CatrgoryListView extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: categoryTemp.length,
                 itemBuilder: ((context, index) {
-                  return SizedBox(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 60,
-                          height: 60,
-                          padding: EdgeInsets.all(8),
-                          margin: EdgeInsets.only(
-                              top: 8, bottom: 8, left: 0, right: 8),
-                          decoration: BoxDecoration(
-                              color: colorList[index].withOpacity(0.3),
-                              borderRadius: BorderRadius.circular(8)),
-                          child: Icon(
-                            categoryTemp.values.elementAt(index),
-                            color: colorList[index],
+                  return InkWell(
+                    onTap: () {
+                      log('pord tapped');
+                      Navigator.of(context).pushNamed('/product');
+                    },
+                    child: SizedBox(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 60,
+                            height: 60,
+                            padding: EdgeInsets.all(8),
+                            margin: EdgeInsets.only(
+                                top: 8, bottom: 8, left: 0, right: 8),
+                            decoration: BoxDecoration(
+                                color: colorList[index].withOpacity(0.3),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Icon(
+                              categoryTemp.values.elementAt(index),
+                              color: colorList[index],
+                            ),
                           ),
-                        ),
-                        Text(categoryTemp.keys.elementAt(index) + '  ')
-                      ],
+                          Text(categoryTemp.keys.elementAt(index) + '  ')
+                        ],
+                      ),
                     ),
                   );
                 })),

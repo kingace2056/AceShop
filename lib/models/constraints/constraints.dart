@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const defpad = EdgeInsets.all(10.0);
+
 const Color primary = Color(0xff3669c9);
 const Color primaryOrange = Color(0xFFFDA429);
 const Color primaryBlk = Color(0xFF13181F);

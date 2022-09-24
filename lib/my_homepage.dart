@@ -1,14 +1,10 @@
 import 'dart:developer';
-
-import 'package:aceshop/models/constraints/catrgories_temp.dart';
 import 'package:aceshop/models/constraints/constraints.dart';
-import 'package:aceshop/views/home/category_listview.dart';
-import 'package:aceshop/views/home/featured_products.dart';
-import 'package:aceshop/views/home/offer_widget.dart';
-import 'package:aceshop/views/home/promo_widget.dart';
-import 'package:aceshop/views/home/search_widhome.dart';
+import 'package:aceshop/views/account/account_page.dart';
+import 'package:aceshop/views/account/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'views/home/home.dart';
 
 int currentIndex = 0;
 
@@ -20,6 +16,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int selPage = 0;
+  final _pages = [
+    const HomePage(),
+    const HomePage(),
+    const MyAccount(),
+    const MyAccount()
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,33 +47,15 @@ class _MyHomePageState extends State<MyHomePage> {
               ))
         ],
       ),
-      body: SafeArea(
-          child: SingleChildScrollView(
-              child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10.0),
-            child: InkWell(
-                onTap: () {
-                  Navigator.of(context).pushNamed('/search');
-                },
-                child: SearchHome()),
-          ),
-          offerWidget(),
-          CatrgoryListView(),
-          FeaturedProductView(),
-          PromoWidget()
-        ],
-      ))),
+      body: _pages[selPage],
       bottomNavigationBar: BottomNavigationBar(
           onTap: (value) {
             setState(() {
-              currentIndex = value;
-              log(currentIndex.toString());
+              selPage = value;
+              log(selPage.toString());
             });
           },
-          currentIndex: currentIndex,
+          currentIndex: selPage,
           // backgroundColor: primary,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: primary,
@@ -84,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               icon: Icon(FontAwesomeIcons.solidHeart),
             ),
             BottomNavigationBarItem(
-              label: 'Wishlist',
+              label: 'Cart',
               icon: Icon(FontAwesomeIcons.bagShopping),
             ),
             BottomNavigationBarItem(

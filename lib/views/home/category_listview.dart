@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/views/category/category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -25,7 +26,9 @@ class CatrgoryListView extends StatelessWidget {
               ),
               TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/category');
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            CategoryPage(category: 'category')));
                   },
                   child: const Text(
                     'See all',
@@ -49,7 +52,9 @@ class CatrgoryListView extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       log('pord tapped');
-                      Navigator.of(context).pushNamed('/product');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategoryPage(
+                              category: categoryTemp.keys.elementAt(index))));
                     },
                     child: SizedBox(
                       child: Column(

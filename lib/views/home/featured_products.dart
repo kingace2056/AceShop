@@ -1,6 +1,7 @@
 import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/product_details_temp.dart';
+import 'package:aceshop/views/category/category_page.dart';
 import 'package:aceshop/views/widgets/product_listing.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -27,7 +28,9 @@ class FeaturedProductView extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed('/category');
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          CategoryPage(category: 'Category')));
                 },
                 child: Text(
                   'See all',

@@ -1,4 +1,5 @@
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/views/category/category_page.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -28,7 +29,8 @@ class SearchBar extends StatelessWidget {
           ),
           IconButton(
               onPressed: () {
-                Navigator.of(context).pushNamed('/category');
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => CategoryPage(category: 'category')));
               },
               icon: const Icon(
                 FontAwesomeIcons.magnifyingGlass,

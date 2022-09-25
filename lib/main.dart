@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
       routes: {
         '/': (context) => const MyHomePage(),
         '/search': (context) => const SearchPage(),
-        '/category': (context) => const CategoryPage(),
+        // '/category': (context) => const CategoryPage(category: '',),
         '/myaccount': (context) => const MyAccount(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScr(),

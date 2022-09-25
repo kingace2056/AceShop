@@ -1,26 +1,27 @@
 import 'dart:developer';
 
-import 'package:aceshop/controllers/text_controller.dart';
-import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/models/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+bool? termS = false;
+
+class SignUpScr extends StatefulWidget {
+  const SignUpScr({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUpScr> createState() => _SignUpScrState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScrState extends State<SignUpScr> {
   bool obsq = true;
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     // TODO: implement dispose
-
+    _nameController.dispose();
     _emailcontroller.dispose();
     _pwcontroller.dispose();
     super.dispose();
@@ -28,16 +29,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final _emailcontroller = TextEditingController();
   final _pwcontroller = TextEditingController();
+  final _nameController = TextEditingController();
   bool submitted = false;
-  var _email = '';
-  var _pass = '';
+  final _email = '';
+  final _pass = '';
+  final _name = '';
   final AuthService authService = AuthService();
-  void signIn() {
-    authService.signInUser(
-      context: context,
-      email: _emailcontroller.text,
-      password: _pwcontroller.text,
-    );
+  void signUp() {
+    authService.signUpUser(
+        context: context,
+        email: _emailcontroller.text,
+        password: _pwcontroller.text,
+        name: _nameController.text);
   }
 
   @override
@@ -48,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         backgroundColor: Colors.transparent,
       ),
       body: Padding(
-        padding: defpad + EdgeInsets.all(8),
+        padding: defpad + const EdgeInsets.all(8),
         child: SingleChildScrollView(
           child: Center(
             child: Column(
@@ -57,17 +60,17 @@ class _LoginScreenState extends State<LoginScreen> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 const Text(
-                  'Welcome back to AceShop',
+                  'Welcome to AceShop',
                   style: TextStyle(
                       color: primaryBlk,
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 30,
                 ),
                 const Text(
-                  'Please enter the data to login',
+                  'Lets join us by creating account',
                   style: TextStyle(color: secDarkGrey, fontSize: 17),
                 ),
                 const SizedBox(
@@ -77,6 +80,36 @@ class _LoginScreenState extends State<LoginScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
+                      TextFormField(
+                        controller: _nameController,
+                        onChanged: ((value) => setState(() => _name)),
+                        decoration: InputDecoration(
+                          errorText: 'Name can\'t be empty',
+                          filled: true,
+                          fillColor: secSoftGrey,
+                          hintText: 'Jon Doe',
+                          label: const Text(
+                            'Full Name',
+                            style: TextStyle(
+                              color: primaryBlk,
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide.none,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Name can\'t be empty';
+                          } else {
+                            return null;
+                          }
+                        },
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       TextFormField(
                         controller: _emailcontroller,
                         onChanged: ((value) => setState(() => _email)),
@@ -109,11 +142,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       TextFormField(
                         obscureText: obsq,
-                        onChanged: ((value) => setState(() => _email)),
+                        onChanged: ((value) => setState(() => _pass)),
                         controller: _pwcontroller,
                         decoration: InputDecoration(
-                          errorText:
-                              submitted ? 'Password cant be empty' : null,
+                          errorText: submitted ? errorTextPw() : null,
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -146,6 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (value == null) {
                             return 'Password can\'t be empty';
                           }
+                          return null;
                         },
                       ),
                     ],
@@ -153,6 +186,41 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(
                   height: 20,
+                ),
+                CheckboxListTile(
+                    controlAffinity: ListTileControlAffinity.leading,
+                    enableFeedback: true,
+                    title: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'I agree to',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text(
+                              'terms and conditions',
+                              style: TextStyle(fontSize: 15),
+                            ))
+                      ],
+                    ),
+                    value: termS,
+                    onChanged: (value) {
+                      setState(() {
+                        termS = value;
+                      });
+                    }),
+                const SizedBox(
+                  height: 10,
+                ),
+                Visibility(
+                  visible: submitted == true && termS == false,
+                  child: Text(
+                    'Please accept terms and conditions ',
+                    style: TextStyle(color: secRed),
+                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -162,15 +230,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 40,
                     width: MediaQuery.of(context).size.width * 0.7,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           submitted = true;
                         });
                         if (_formKey.currentState!.validate()) {
-                          signIn();
+                          signUp();
                         }
                       },
-                      child: Text('Sign In'),
+                      child: const Text('Sign Up'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         foregroundColor: primaryWhite,
@@ -181,28 +249,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        elevation: 0,
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'Forgot Password ? ',
-                  style: TextStyle(color: primaryBlk),
-                )),
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed('/signup');
-                },
-                child: Text('Sign Up '))
-          ],
         ),
       ),
     );
@@ -222,6 +268,25 @@ class _LoginScreenState extends State<LoginScreen> {
       return 'Can\'t be empty';
     }
     if (text.length < 4) {
+      return 'Too short';
+    }
+    // return null if the text is valid
+    return null;
+  }
+
+  String? errorTextPw() {
+    final RegExp regex = RegExp(r"(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W)");
+    // at any time, we can get the text from _controller.value.text
+
+    String pwText = _emailcontroller.value.text;
+    if (!regex.hasMatch(pwText))
+      return 'Password Must contain Lowercase, Uppercase, Special character and atleast length of 6';
+    // Note: you can do your own custom validation here
+    // Move this logic this outside the widget for more testable code
+    if (pwText.isEmpty) {
+      return 'Can\'t be empty';
+    }
+    if (pwText.length < 4) {
       return 'Too short';
     }
     // return null if the text is valid

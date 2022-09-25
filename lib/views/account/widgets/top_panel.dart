@@ -1,4 +1,4 @@
-import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/models/services/auth_service.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +35,21 @@ class TopPanel extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              isAdmin() ? const Text('Admin Dashboard') : const SizedBox(),
+              isAdmin()
+                  ? const Text(
+                      'Admin Dashboard',
+                      style: TextStyle(
+                          color: primaryWhite,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    )
+                  : const SizedBox(),
               IconButton(
                 onPressed: () {
-                  AuthService().signOut(context: context);
+                  // AuthService().signOut(context: context);
                 },
                 icon: const Icon(
-                  FontAwesomeIcons.signOut,
+                  FontAwesomeIcons.arrowRightFromBracket,
                   color: Colors.white,
                 ),
               )

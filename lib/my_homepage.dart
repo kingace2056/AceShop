@@ -1,9 +1,12 @@
 import 'dart:developer';
-import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/constraints/catrgories_temp.dart';
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/account_page.dart';
-import 'package:aceshop/views/account/login_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'views/home/home.dart';
 
 int currentIndex = 0;
@@ -25,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ];
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return Scaffold(
       appBar: AppBar(
         title: const Text('AceShop'),
@@ -48,6 +52,33 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: _pages[selPage],
+      floatingActionButton: user.type == 'admin'
+          ? ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  backgroundColor: primary, foregroundColor: primaryWhite),
+              onPressed: () {
+                categoryTemp.keys.toList();
+                Navigator.of(context).pushNamed('/addproduct');
+              },
+              child: Container(
+                alignment: Alignment.center,
+                height: MediaQuery.of(context).size.height * 0.1,
+                width: MediaQuery.of(context).size.height * 0.1,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add),
+                    Text(
+                      'Add Product',
+                      textAlign: TextAlign.center,
+                    )
+                  ],
+                ),
+              ),
+            )
+          : null,
       bottomNavigationBar: BottomNavigationBar(
           onTap: (value) {
             setState(() {

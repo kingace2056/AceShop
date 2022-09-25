@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:aceshop/models/constraints/constraints.dart';
-import 'package:aceshop/models/constraints/error_handling.dart';
-import 'package:aceshop/models/constraints/utils.dart';
+import 'package:aceshop/main.dart';
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/error_handling.dart';
+import 'package:aceshop/constraints/utils.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:aceshop/my_homepage.dart';
 // import 'package:aceshop/my_homepage.dart';
@@ -50,7 +51,7 @@ class AuthService {
             showDialog(
                 context: (context),
                 builder: (context) => AlertDialog(
-                      title: Text('Successfully signed up'),
+                      title: const Text('Successfully signed up'),
                       actions: [
                         TextButton(
                             onPressed: () {
@@ -146,22 +147,6 @@ class AuthService {
         var userProvider = Provider.of<UserProvider>(context, listen: false);
         userProvider.setUser(userRes.body);
       }
-    } catch (e) {
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  signOut({
-    required BuildContext context,
-  }) async {
-    try {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString('x-auth-token', '');
-      var userProvider = Provider.of<UserProvider>(context, listen: false);
-
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => const MyHomePage()),
-          (route) => false);
     } catch (e) {
       showSnackBar(context, e.toString());
     }

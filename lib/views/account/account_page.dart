@@ -1,11 +1,12 @@
 import 'dart:developer';
 
-import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/models/services/auth_service.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
-import 'package:aceshop/views/account/nologin.dart';
-import 'package:aceshop/views/account/user_page.dart';
+import 'package:aceshop/views/account/user/nologin.dart';
+import 'package:aceshop/views/account/user/user_page.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,7 @@ class _MyAccountState extends State<MyAccount> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
-    log('${user.address} ${user.name} token ${user.token}');
+    log('${user.address} ${user.name}token ${user.token}');
     return user.token.isNotEmpty
         ? const UserPage()
         : const AccountNotLoggedIn();

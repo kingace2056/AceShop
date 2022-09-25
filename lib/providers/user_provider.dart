@@ -20,6 +20,7 @@ class UserProvider extends ChangeNotifier {
 
   void setUser(String user) {
     _user = userFromJson(user);
+    notifyListeners();
   }
 
   void setUserFromModel(User user) {

@@ -1,9 +1,10 @@
 import 'dart:developer';
 
-import 'package:aceshop/models/constraints/constraints.dart';
-import 'package:aceshop/models/constraints/product_details_temp.dart';
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/product_details_temp.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
+import 'package:aceshop/views/account/admin/my_products.dart';
 import 'package:aceshop/views/account/widgets/order_panel.dart';
 import 'package:aceshop/views/account/widgets/recent_panel.dart';
 import 'package:aceshop/views/account/widgets/top_panel.dart';
@@ -39,6 +40,7 @@ class _UserPageState extends State<UserPage> {
             : Column(
                 children: [
                   TopPanel(user: user),
+                  const MyProds(),
                 ],
               ));
   }

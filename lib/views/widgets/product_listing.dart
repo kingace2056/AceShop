@@ -1,8 +1,11 @@
 import 'dart:ffi';
 
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'package:aceshop/models/constraints/constraints.dart';
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class ProductListing extends StatelessWidget {
   final String prodName;
@@ -21,6 +24,7 @@ class ProductListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<UserProvider>(context).user;
     return Container(
         decoration: const BoxDecoration(color: primaryWhite, boxShadow: [
           BoxShadow(
@@ -42,7 +46,7 @@ class ProductListing extends StatelessWidget {
                 decoration: BoxDecoration(
                     color: primaryWhite,
                     image: DecorationImage(
-                        alignment: Alignment.centerRight,
+                        alignment: Alignment.center,
                         image: NetworkImage(
                           prodImage,
                         ))),
@@ -87,10 +91,17 @@ class ProductListing extends StatelessWidget {
                       Text('  ${randIndex * 10 + 3 + randIndex * 2} Reviews',
                           style: const TextStyle(fontSize: 13)),
                       const Spacer(),
-                      const Icon(
-                        Icons.more_vert_outlined,
-                        size: 13,
-                      )
+                      user.type == 'admin'
+                          ? IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.delete_outline,
+                                // size: 13,
+                              ))
+                          : Icon(
+                              Icons.more_vert_outlined,
+                              size: 13,
+                            )
                     ],
                   )
                 ],

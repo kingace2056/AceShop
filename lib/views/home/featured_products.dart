@@ -54,6 +54,7 @@ class FeaturedProductView extends StatelessWidget {
                     prodPrice: priceRatingDemo.keys.elementAt(index),
                     prodRating: priceRatingDemo.values.elementAt(index),
                     randIndex: index,
+                    btnFunc: () {},
                   );
                 })),
           ),

@@ -52,27 +52,29 @@ class AdminServices {
             },
             body: product.toJson());
         httpError(
-            response: postRes,
-            context: context,
-            onSuccess: () async {
-              // showSnackBar(context, 'Submitted successfully');
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: Text('Successfully submitted'),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).popAndPushNamed('/');
-                      },
-                      child: Text('Finish'),
-                    )
-                  ],
-                ),
-              );
-            });
+          response: postRes,
+          context: context,
+          onSuccess: () async {
+            // showSnackBar(context, 'Submitted successfully');
+            showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                content: Text('Successfully submitted'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).popAndPushNamed('/');
+                    },
+                    child: Text('Finish'),
+                  )
+                ],
+              ),
+            );
+          },
+        );
       }
     } catch (e) {
+      log('SellProd Error');
       showSnackBar(context, e.toString());
     }
   }
@@ -115,13 +117,42 @@ class AdminServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
-      http.Response res =
-          await http.get(Uri.parse('$baseUrl/admin/get-products'), headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'x-auth-token': userProvider.user.token,
-      });
+      http.Response res = await http.post(
+        Uri.parse('$baseUrl/admin/delete-product'),
+        body: jsonEncode(
+          {'id': product.id},
+        ),
+        headers: {
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': userProvider.user.token,
+        },
+      );
+      httpError(
+        response: res,
+        context: context,
+        onSuccess: () async {
+          // showSnackBar(context, 'Submitted successfully');
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text('Successfully Deleted'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).popAndPushNamed('/');
+                  },
+                  child: Text('Finish'),
+                )
+              ],
+            ),
+          );
+        },
+      );
     } catch (e) {
+      log('*****\n');
       log(e.toString());
+      log('*****\n');
+      showSnackBar(context, e.toString());
     }
   }
 }

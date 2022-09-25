@@ -1,11 +1,9 @@
-import 'dart:ffi';
-
-import 'package:aceshop/providers/user_provider.dart';
 import 'package:flutter/material.dart';
-
-import 'package:aceshop/constraints/constraints.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/providers/user_provider.dart';
 
 class ProductListing extends StatelessWidget {
   final String prodName;
@@ -13,13 +11,15 @@ class ProductListing extends StatelessWidget {
   final String prodPrice;
   final String prodRating;
   final int randIndex;
-  const ProductListing({
+  VoidCallback btnFunc = () {};
+  ProductListing({
     Key? key,
-    required this.prodImage,
     required this.prodName,
+    required this.prodImage,
     required this.prodPrice,
     required this.prodRating,
     required this.randIndex,
+    required this.btnFunc,
   }) : super(key: key);
 
   @override
@@ -93,7 +93,9 @@ class ProductListing extends StatelessWidget {
                       const Spacer(),
                       user.type == 'admin'
                           ? IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                this.btnFunc;
+                              },
                               icon: Icon(
                                 Icons.delete_outline,
                                 // size: 13,

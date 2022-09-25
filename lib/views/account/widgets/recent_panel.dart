@@ -32,11 +32,13 @@ class RecentPanel extends StatelessWidget {
           itemCount: productDemo.length - 3,
           itemBuilder: (BuildContext context, int index) {
             return ProductListing(
-                prodImage: productDemo.values.elementAt(index),
-                prodName: productDemo.keys.elementAt(index),
-                prodPrice: priceRatingDemo.keys.elementAt(index),
-                prodRating: priceRatingDemo.values.elementAt(index),
-                randIndex: index);
+              prodImage: productDemo.values.elementAt(index),
+              prodName: productDemo.keys.elementAt(index),
+              prodPrice: priceRatingDemo.keys.elementAt(index),
+              prodRating: priceRatingDemo.values.elementAt(index),
+              randIndex: index,
+              btnFunc: () {},
+            );
           },
         ),
       ],

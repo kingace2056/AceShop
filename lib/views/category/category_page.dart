@@ -57,6 +57,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       prodPrice: priceRatingDemo.keys.elementAt(index),
                       prodRating: priceRatingDemo.values.elementAt(index),
                       randIndex: index,
+                      btnFunc: () {},
                     );
                   })
             ],

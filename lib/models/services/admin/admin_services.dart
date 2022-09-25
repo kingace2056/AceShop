@@ -112,7 +112,7 @@ class AdminServices {
       {required BuildContext context,
       required Product product,
       required VoidCallback onSuccess}) async {
-         final userProvider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
     try {
       http.Response res =
@@ -120,7 +120,8 @@ class AdminServices {
         'Content-Type': 'application/json; charset=UTF-8',
         'x-auth-token': userProvider.user.token,
       });
-      }catch(e){
-        log(e.toString());
-      }
+    } catch (e) {
+      log(e.toString());
+    }
+  }
 }

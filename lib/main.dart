@@ -1,18 +1,19 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
 import 'package:aceshop/models/services/auth_service.dart';
+import 'package:aceshop/my_homepage.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/account_page.dart';
 import 'package:aceshop/views/account/admin/add_product.dart';
 import 'package:aceshop/views/account/user/login_screen.dart';
 import 'package:aceshop/views/account/user/signup_screen.dart';
-
-import 'package:aceshop/views/category/category_page.dart';
-import 'package:aceshop/my_homepage.dart';
-import 'package:aceshop/views/home/home.dart';
 import 'package:aceshop/views/product/product_page.dart';
 import 'package:aceshop/views/search/search_menu.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,12 +35,20 @@ class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   void initState() {
-    // TODO: implement initState
     final AuthService authService = AuthService();
-    print('Err chk start \n');
+    log('Err chk start \n');
     authService.getUserData(context: context);
-    print('Err chk end \n');
+    log('Err chk end \n');
+    getSharedPrefs();
     super.initState();
+  }
+
+  Future<void> getSharedPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString(
+      'x-auth-token',
+    );
+    setState(() {});
   }
 
   @override
@@ -56,12 +65,12 @@ class _MyAppState extends State<MyApp> {
       ),
       routes: {
         '/': (context) => const MyHomePage(),
-        '/search': (context) => const SearchPage(),
+        '/search': (context) => const SearchMenuPage(),
         // '/category': (context) => const CategoryPage(category: '',),
         '/myaccount': (context) => const MyAccount(),
         '/login': (context) => const LoginScreen(),
         '/signup': (context) => const SignUpScr(),
-        '/product': (context) => const ProductPage(),
+
         '/addproduct': (context) => const AddProductScr(),
       },
     );

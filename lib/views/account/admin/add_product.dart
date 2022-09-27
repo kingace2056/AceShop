@@ -1,8 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 import 'dart:ui';
 
 import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/constraints/utils.dart';
 import 'package:aceshop/models/services/admin/admin_services.dart';
 import 'package:aceshop/views/widgets/custom_text_field.dart';
@@ -67,6 +69,7 @@ class _AddProductScrState extends State<AddProductScr> {
   @override
   void dispose() {
     // TODO: implement dispose
+
     pnameController.dispose();
     pdesController.dispose();
     pPriceController.dispose();
@@ -101,8 +104,8 @@ class _AddProductScrState extends State<AddProductScr> {
                     )
                   : InkWell(
                       onTap: () {
-                        print(categories);
-                        print(categoryTemp);
+                        log(categories.toString());
+                        log(categoryTemp.toString());
                         selectImage();
                       },
                       child: DottedBorder(
@@ -227,7 +230,7 @@ class _AddProductScrState extends State<AddProductScr> {
                               foregroundColor: primaryWhite),
                           onPressed: () {
                             postProduct();
-                            print('posted');
+                            log('posted');
                           },
                           child: Text('Submit'),
                         ),

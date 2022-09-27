@@ -1,12 +1,16 @@
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/views/category/category_page.dart';
+import 'package:aceshop/views/search/search_result.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({
+  SearchBar({
     Key? key,
   }) : super(key: key);
+
+  final TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +22,15 @@ class SearchBar extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Expanded(
+          Expanded(
             child: TextField(
-              decoration: InputDecoration(
+              controller: searchController,
+              textInputAction: TextInputAction.go,
+              onSubmitted: (value) {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SearchPage(search: value)));
+              },
+              decoration: const InputDecoration(
                 focusColor: primary,
                 border: OutlineInputBorder(borderSide: BorderSide.none),
                 hintText: 'Search Product name',
@@ -30,7 +40,8 @@ class SearchBar extends StatelessWidget {
           IconButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => CategoryPage(category: 'category')));
+                    builder: (context) =>
+                        SearchPage(search: searchController.text)));
               },
               icon: const Icon(
                 FontAwesomeIcons.magnifyingGlass,

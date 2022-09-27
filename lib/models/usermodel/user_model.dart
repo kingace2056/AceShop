@@ -1,9 +1,6 @@
 // To parse this JSON data, do
 //
 //     final user = userFromJson(jsonString);
-
-import 'package:flutter/cupertino.dart';
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 User userFromJson(String str) => User.fromJson(json.decode(str));

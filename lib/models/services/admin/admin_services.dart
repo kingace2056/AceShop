@@ -2,18 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:aceshop/constraints/constraints.dart';
+import 'package:cloudinary_public/cloudinary_public.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
+
 import 'package:aceshop/constraints/error_handling.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/constraints/utils.dart';
-import 'package:aceshop/models/product_model/product_model.dart';
-
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
-import 'package:aceshop/views/widgets/loader.dart';
-import 'package:cloudinary_public/cloudinary_public.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class AdminServices {
   Future<void> sellProduct({
@@ -33,46 +31,47 @@ class AdminServices {
         CloudinaryResponse cloudresp = await cloudinary.uploadFile(
             CloudinaryFile.fromFile(images[i].path, folder: name + user.name));
         log(cloudinary.toString());
-        imageUrl.add(cloudresp.secureUrl);
-        Product product = Product(
-            name: name,
-            description: description,
-            price: price,
-            quantity: quantity,
-            category: category,
-            images: imageUrl);
 
-        http.Response postRes = await http.post(
-            Uri.parse(
-              '$baseUrl/admin/add-product',
-            ),
-            headers: {
-              'Content-Type': 'application/json; charset=UTF-8',
-              'x-auth-token': user.token
-            },
-            body: product.toJson());
-        httpError(
-          response: postRes,
-          context: context,
-          onSuccess: () async {
-            // showSnackBar(context, 'Submitted successfully');
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                content: Text('Successfully submitted'),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).popAndPushNamed('/');
-                    },
-                    child: Text('Finish'),
-                  )
-                ],
-              ),
-            );
-          },
-        );
+        imageUrl.add(cloudresp.secureUrl);
       }
+      Product product = Product(
+          name: name,
+          description: description,
+          price: price,
+          quantity: quantity,
+          category: category,
+          images: imageUrl);
+
+      http.Response postRes = await http.post(
+          Uri.parse(
+            '$baseUrl/admin/add-product',
+          ),
+          headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': user.token
+          },
+          body: product.toJson());
+      httpError(
+        response: postRes,
+        context: context,
+        onSuccess: () async {
+          // showSnackBar(context, 'Submitted successfully');
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: const Text('Successfully submitted'),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).popAndPushNamed('/');
+                  },
+                  child: const Text('Finish'),
+                )
+              ],
+            ),
+          );
+        },
+      );
     } catch (e) {
       log('SellProd Error');
       showSnackBar(context, e.toString());
@@ -104,8 +103,8 @@ class AdminServices {
         },
       );
     } catch (e) {
-      log('this is error here ' + e.toString());
-      showSnackBar(context, 'this is error here ' + e.toString());
+      log('this is error here $e');
+      showSnackBar(context, 'this is error here $e');
     }
     return productList;
   }
@@ -115,7 +114,7 @@ class AdminServices {
       required Product product,
       required VoidCallback onSuccess}) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
-    List<Product> productList = [];
+    // List<Product> productList = [];
     try {
       http.Response res = await http.post(
         Uri.parse('$baseUrl/admin/delete-product'),
@@ -135,13 +134,13 @@ class AdminServices {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
-              content: Text('Successfully Deleted'),
+              content: const Text('Successfully Deleted'),
               actions: [
                 TextButton(
                   onPressed: () {
                     Navigator.of(context).popAndPushNamed('/');
                   },
-                  child: Text('Finish'),
+                  child: const Text('Finish'),
                 )
               ],
             ),

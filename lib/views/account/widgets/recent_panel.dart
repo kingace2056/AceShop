@@ -1,5 +1,6 @@
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/product_details_temp.dart';
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/views/widgets/product_listing.dart';
 import 'package:flutter/material.dart';
 
@@ -32,12 +33,13 @@ class RecentPanel extends StatelessWidget {
           itemCount: productDemo.length - 3,
           itemBuilder: (BuildContext context, int index) {
             return ProductListing(
-              prodImage: productDemo.values.elementAt(index),
-              prodName: productDemo.keys.elementAt(index),
-              prodPrice: priceRatingDemo.keys.elementAt(index),
-              prodRating: priceRatingDemo.values.elementAt(index),
-              randIndex: index,
-              btnFunc: () {},
+              product: Product(
+                  name: 'Name',
+                  description: 'Desc',
+                  quantity: 4,
+                  images: [],
+                  category: '',
+                  price: 2),
             );
           },
         ),

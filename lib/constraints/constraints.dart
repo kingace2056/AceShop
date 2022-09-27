@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// String baseUrl = 'http://192.168.18.38:3000';
-String baseUrl = 'https://aceshop.onrender.com';
-
 const defpad = EdgeInsets.all(10.0);
 
 const Color primary = Color(0xff3669c9);
@@ -22,3 +19,6 @@ const Color secOffGrey = Color(0xFFFAFAFA);
 const Color labelBlue = Color(0xFFEFF5FB);
 const Color labelGrn = Color(0xFFEEFAF6);
 const Color labelRed = Color(0xFFFCECEF);
+
+const String loremIps =
+    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie at elit blandit convallis. Phasellus cursus risus et tortor gravida, a suscipit tellus tincidunt. Integer id scelerisque arcu. Aliquam ac ante lacus. Vestibulum maximus tortor sed metus porttitor, ut interdum eros blandit. Mauris pellentesque ultricies cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida congue magna, eget tincidunt elit feugiat at. Pellentesque eu orci non risus interdum lobortis non eu urna. Sed ut auctor ligula. Etiam ut tellus vel mauris tempus interdum a vitae est. Aliquam faucibus, dolor a sollicitudin interdum, purus tellus ullamcorper massa, at condimentum erat tortor sed.';

@@ -1,34 +1,36 @@
+// import 'package:aceshop/models/services/home/home_services.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
-import 'package:aceshop/models/services/home/home_services.dart';
+import 'package:aceshop/models/services/search/search_services.dart';
 import 'package:aceshop/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 
 import 'package:aceshop/views/widgets/product_listing.dart';
 
-class CategoryPage extends StatefulWidget {
-  const CategoryPage({
+class SearchPage extends StatefulWidget {
+  const SearchPage({
     Key? key,
-    required this.category,
+    required this.search,
   }) : super(key: key);
-  final String category;
+  final String search;
 
   @override
-  State<CategoryPage> createState() => _CategoryPageState();
+  State<SearchPage> createState() => _SearchPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _SearchPageState extends State<SearchPage> {
   List<Product>? prodList;
-  HomeServices homeServices = HomeServices();
+  SearchServices searchServices = SearchServices();
+  @override
   void initState() {
     // TODO: implement initState
-    fetchCategoryProd();
+    fetchSearchProd();
     super.initState();
   }
 
-  fetchCategoryProd() async {
-    prodList = await homeServices.fetchCagegoryProds(
+  fetchSearchProd() async {
+    prodList = await SearchServices().searchProds(
       context: context,
-      category: widget.category,
+      searchQuery: widget.search,
     );
     setState(() {});
   }
@@ -37,7 +39,7 @@ class _CategoryPageState extends State<CategoryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.category),
+          title: Text(widget.search),
           centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 1,
@@ -66,7 +68,7 @@ class _CategoryPageState extends State<CategoryPage> {
                     Padding(
                       padding: const EdgeInsets.all(10.0),
                       child: Text(
-                        'Explore ${widget.category}',
+                        'Explore ${widget.search}',
                         style: TextStyle(
                             fontSize: 25, fontWeight: FontWeight.bold),
                       ),
@@ -85,6 +87,7 @@ class _CategoryPageState extends State<CategoryPage> {
                               final prodData = prodList?[index];
                               return ProductListing(
                                 product: prodData!,
+                                // btnFunc: () {},
                               );
                             })
                   ],

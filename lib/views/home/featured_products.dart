@@ -1,13 +1,8 @@
-import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/product_details_temp.dart';
-import 'package:aceshop/models/product_model/product_model.dart';
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/views/category/category_page.dart';
 import 'package:aceshop/views/widgets/product_listing.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import '../../models/services/home/home_services.dart';
 
 class FeaturedProductView extends StatefulWidget {
@@ -47,7 +42,7 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
+              const Text(
                 'Featured Products',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
@@ -55,9 +50,9 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          CategoryPage(category: 'Category')));
+                          const CategoryPage(category: 'Category')));
                 },
-                child: Text(
+                child: const Text(
                   'See all',
                   style: TextStyle(color: primary, fontWeight: FontWeight.w300),
                 ),
@@ -65,34 +60,37 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
             ],
           ),
         ),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: SizedBox(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.35,
-            child: prodList?.length == 0
-                ? Center(
-                    child: Text('No Products found'),
-                  )
-                : ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    // physics: NeverScrollableScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: prodList?.length,
-                    itemBuilder: ((context, index) {
-                      final prodData = prodList?[index];
-                      return ProductListing(
-                        prodName: prodData!.name,
-                        prodImage: prodData.images[0],
-                        prodPrice: prodData.price.toString(),
-                        prodRating: '3',
-                        randIndex: index,
-                        btnFunc: () {},
-                      );
-                    }),
-                  ),
-          ),
-        ),
+        prodList == null
+            ? Container(
+                height: MediaQuery.of(context).size.height / 2,
+                width: double.infinity,
+                child: const Center(
+                  child: Text('No product available right now '),
+                ),
+              )
+            : Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  child: prodList?.length == 0
+                      ? const Center(
+                          child: Text('No Products found'),
+                        )
+                      : ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          // physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: prodList?.length,
+                          itemBuilder: ((context, index) {
+                            final prodData = prodList?[index];
+                            return ProductListing(
+                              product: prodData!,
+                            );
+                          }),
+                        ),
+                ),
+              ),
       ],
     );
   }

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
-import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/product/product_page.dart';
+
+// this is not used though kept here since we can use it in future
 
 class ProductListing extends StatelessWidget {
   final Product product;
-  // VoidCallback btnFunc = () {};
-  ProductListing({
+  // final int randIndex;
+
+  final VoidCallback btnFunc;
+  const ProductListing({
     Key? key,
     required this.product,
+    required this.btnFunc,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(
@@ -68,7 +70,7 @@ class ProductListing extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Rs${product.price}',
+                      'Rs $product.price',
                       style: const TextStyle(
                           color: secRed, fontWeight: FontWeight.bold),
                     ),
@@ -84,18 +86,21 @@ class ProductListing extends StatelessWidget {
                           width: 2,
                         ),
                         Text(
-                          product.rating!.isNotEmpty
-                              ? product.rating![0].rating.toString()
-                              : '0',
+                          //todo: change this to prod ratign
+                          '2',
                           style: const TextStyle(fontSize: 13),
                         ),
-                        const Text('  ${1 * 10 + 3 + 3 * 2} Reviews',
-                            style: TextStyle(fontSize: 13)),
+                        Text('  ${2 * 10 + 3 + 3 * 2} Reviews',
+                            style: const TextStyle(fontSize: 13)),
                         const Spacer(),
-                        const Icon(
-                          Icons.more_vert_outlined,
-                          size: 13,
-                        )
+                        IconButton(
+                            onPressed: () {
+                              this.btnFunc;
+                            },
+                            icon: Icon(
+                              Icons.delete_outline,
+                              // size: 13,
+                            ))
                       ],
                     )
                   ],

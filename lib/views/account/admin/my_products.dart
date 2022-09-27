@@ -1,5 +1,6 @@
 import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/models/product_model/product_model.dart';
+import 'package:aceshop/constraints/secrets.dart';
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/models/services/admin/admin_services.dart';
 import 'package:aceshop/views/widgets/loader.dart';
 import 'package:aceshop/views/widgets/product_listing.dart';

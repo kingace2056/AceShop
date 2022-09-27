@@ -27,7 +27,7 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
   fetchCategoryProd() async {
     prodList = await homeServices.fetchCagegoryProds(
       context: context,
-      category: 'Foods',
+      category: 'Electronics',
     );
     setState(() {});
   }
@@ -50,7 +50,7 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) =>
-                          const CategoryPage(category: 'Category')));
+                          const CategoryPage(category: 'Electronics')));
                 },
                 child: const Text(
                   'See all',

@@ -20,17 +20,23 @@ class ProductDetailServices {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
       http.Response res = await http.post(
-        Uri.parse('$baseUrl/api/add-to-cart'),
+        Uri.parse('$baseUrl/api/rate-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({
           'id': product.id!,
+          'rating': rating,
         }),
       );
 
-      httpError(response: res, context: context, onSuccess: () async {});
+      httpError(
+          response: res,
+          context: context,
+          onSuccess: () async {
+            showSnackBar(context, 'Successfully rated $rating');
+          });
     } catch (e) {
       log('SellProd Error');
       showSnackBar(context, e.toString());

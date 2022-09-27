@@ -1,19 +1,22 @@
-import 'package:aceshop/providers/user_provider.dart';
+import 'dart:developer';
+
+import 'package:aceshop/views/product/rate_product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/product_details_temp.dart';
 import 'package:aceshop/models/services/product_model/product_details_services.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/home/featured_products.dart';
 import 'package:aceshop/views/product/name_rate_panel.dart';
 import 'package:aceshop/views/product/prod_description.dart';
 import 'package:aceshop/views/product/review_panel.dart';
 import 'package:aceshop/views/product/seller_badge.dart';
-import 'package:provider/provider.dart';
 
 bool showLess = true;
 
@@ -30,23 +33,19 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
-  int randomNum = 3;
   final ProductDetailServices productDetailServices = ProductDetailServices();
-
   double avgRating = 0;
   double myRating = 0;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     double totalRating = 0;
-    if (widget.product.rating!.isNotEmpty) {
-      for (int i = 0; i < widget.product.rating![i].rating; i++) {
-        totalRating += widget.product.rating![i].rating;
-        if (widget.product.rating![i].userId ==
-            Provider.of<UserProvider>(context, listen: false).user.id) {
-          myRating = widget.product.rating![i].rating;
-        }
+    for (int i = 0; i < widget.product.rating!.length; i++) {
+      totalRating += widget.product.rating![i].rating;
+      if (widget.product.rating![i].userId ==
+          Provider.of<UserProvider>(context, listen: false).user.id) {
+        myRating = widget.product.rating![i].rating;
       }
     }
 
@@ -90,10 +89,8 @@ class _ProductPageState extends State<ProductPage> {
               height: 40,
             ),
             NamePanel(
-              randomNum: randomNum,
-              prodName: widget.product.name,
-              pRating: avgRating,
-              prodPrice: widget.product.price.toString(),
+              product: widget.product,
+              prodRating: avgRating,
             ),
             const SellerBadge(),
             // SizedBox(
@@ -108,33 +105,17 @@ class _ProductPageState extends State<ProductPage> {
             //     ],
             //   ),
             // ),
-            Container(
-              child: Column(
-                children: [
-                  Text('Rate this product'),
-                  RatingBar.builder(
-                      initialRating: myRating,
-                      minRating: 1,
-                      direction: Axis.horizontal,
-                      allowHalfRating: true,
-                      itemCount: 5,
-                      itemPadding: const EdgeInsets.symmetric(horizontal: 4),
-                      itemBuilder: (context, _) =>
-                          Icon(Icons.star, color: primaryOrange),
-                      onRatingUpdate: (rating) {
-                        productDetailServices.rateProduct(
-                          context: context,
-                          product: widget.product,
-                          rating: rating,
-                        );
-                      })
-                ],
-              ),
+            RateProd(
+                myRating: myRating,
+                productDetailServices: productDetailServices,
+                widget: widget),
+            SizedBox(
+              height: 10,
             ),
             DescriptionPanel(
               prodDescp: widget.product.description,
             ),
-            const ReviewPanel(),
+            ReviewPanel(product: widget.product),
             const FeaturedProductView(),
           ],
         ),
@@ -147,7 +128,7 @@ class _ProductPageState extends State<ProductPage> {
             Expanded(
               child: Container(
                   // margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   height: 60,
                   // width: MediaQuery.of(context).size.width / 2,
                   decoration: BoxDecoration(
@@ -156,25 +137,25 @@ class _ProductPageState extends State<ProductPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Add To Wishlist',
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),
-                      Spacer(),
-                      Icon(
+                      const Spacer(),
+                      const Icon(
                         FontAwesomeIcons.solidHeart,
                         color: Colors.white,
                       )
                     ],
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               width: 20,
             ),
             Expanded(
               child: Container(
                   // margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: EdgeInsets.only(left: 10, right: 10),
+                  padding: const EdgeInsets.only(left: 10, right: 10),
                   height: 60,
                   // width: MediaQuery.of(context).size.width / 2,
                   decoration: BoxDecoration(
@@ -185,7 +166,7 @@ class _ProductPageState extends State<ProductPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
+                      const Text(
                         'Add To Cart',
                         style: TextStyle(color: Colors.white, fontSize: 17),
                       ),

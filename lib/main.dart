@@ -48,6 +48,7 @@ class _MyAppState extends State<MyApp> {
     String? token = prefs.getString(
       'x-auth-token',
     );
+    AuthService().getUserData;
     setState(() {});
   }
 

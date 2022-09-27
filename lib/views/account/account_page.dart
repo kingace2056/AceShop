@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/secrets.dart';
+import 'package:aceshop/constraints/product_details_temp.dart';
 import 'package:aceshop/models/services/auth_service.dart';
-import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/user/nologin.dart';
 import 'package:aceshop/views/account/user/user_page.dart';
@@ -32,7 +30,9 @@ class _MyAccountState extends State<MyAccount> {
     final user = Provider.of<UserProvider>(context).user;
     log('${user.address} ${user.name}token ${user.token}');
     return user.token.isNotEmpty
-        ? const UserPage()
+        ? UserPage(
+            user: user,
+          )
         : const AccountNotLoggedIn();
   }
 }

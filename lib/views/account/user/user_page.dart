@@ -1,22 +1,20 @@
-import 'dart:developer';
-
-import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/secrets.dart';
-import 'package:aceshop/constraints/product_details_temp.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/admin/my_products.dart';
 import 'package:aceshop/views/account/widgets/order_panel.dart';
 import 'package:aceshop/views/account/widgets/recent_panel.dart';
 import 'package:aceshop/views/account/widgets/top_panel.dart';
-import 'package:aceshop/views/search/recents.dart';
-import 'package:aceshop/views/widgets/product_listing.dart';
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
 
 class UserPage extends StatefulWidget {
-  const UserPage({super.key});
+  final User user;
+  const UserPage({
+    Key? key,
+    required this.user,
+  }) : super(key: key);
 
   @override
   State<UserPage> createState() => _UserPageState();
@@ -35,7 +33,18 @@ class _UserPageState extends State<UserPage> {
                   OrderPanel(
                     user: user,
                   ),
-                  RecentPanel(),
+                  RecentPanel(
+                    product: Product(
+                        name: 'Fix This',
+                        description: 'Fix this page for normal user',
+                        quantity: 3,
+                        images: [
+                          'https://res.cloudinary.com/dw7ehikmk/image/upload/v1664290218/RC%20Helicopter%20Admin%20ACE/qrfhs3kgmlhwxqsovhgy.webp'
+                        ],
+                        category: 'Foods',
+                        rating: [],
+                        price: 400),
+                  ),
                 ],
               )
             : Column(

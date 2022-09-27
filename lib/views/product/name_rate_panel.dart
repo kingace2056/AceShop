@@ -7,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/product_details_temp.dart';
 import 'package:aceshop/models/services/product_model/product_details_services.dart';
+import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/views/home/featured_products.dart';
 import 'package:aceshop/views/product/name_rate_panel.dart';
 import 'package:aceshop/views/product/prod_description.dart';
@@ -16,15 +17,11 @@ import 'package:aceshop/views/product/seller_badge.dart';
 class NamePanel extends StatelessWidget {
   NamePanel({
     Key? key,
-    required this.prodName,
-    required this.prodPrice,
-    required this.randomNum,
-    required this.pRating,
+    required this.product,
+    required this.prodRating,
   }) : super(key: key);
-  final String prodName;
-  final String prodPrice;
-  final int randomNum;
-  final double pRating;
+  final Product product;
+  final double prodRating;
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,7 @@ class NamePanel extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            prodName,
+            product.name,
             maxLines: 1,
             textAlign: TextAlign.justify,
             style: TextStyle(
@@ -46,7 +43,7 @@ class NamePanel extends StatelessWidget {
             ),
           ),
           Text(
-            'Rs $prodPrice',
+            'Rs ${product.price}',
             style: TextStyle(
                 fontSize: 18, color: secRed, fontWeight: FontWeight.bold),
           ),
@@ -62,7 +59,7 @@ class NamePanel extends StatelessWidget {
                 width: 3,
               ),
               Text(
-                pRating.toString(),
+                prodRating.toString(),
                 style: TextStyle(fontSize: 16),
               ),
               const Text('  ${1 * 10 + 3 + 1 * 2} Reviews',
@@ -72,12 +69,12 @@ class NamePanel extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(10, 4, 10, 4),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(40),
-                    color: randomNum == 2 ? labelGrn : labelRed),
+                    color: product.quantity == 0 ? labelRed : labelGrn),
                 child: Text(
-                  randomNum == 2 ? 'Available ' : 'Unavailable',
+                  product.quantity != 0 ? 'Available ' : 'Unavailable',
                   style: TextStyle(
                       fontSize: 18,
-                      color: randomNum == 2 ? secGreen : secRed,
+                      color: product.quantity != 0 ? secGreen : secRed,
                       fontWeight: FontWeight.bold),
                 ),
               )

@@ -1,23 +1,40 @@
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/models/services/auth_service.dart';
+import 'package:aceshop/models/services/user_services/user_services.dart';
 import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class TopPanel extends StatelessWidget {
+class TopPanel extends StatefulWidget {
   const TopPanel({
     Key? key,
     required this.user,
   }) : super(key: key);
 
   final User user;
+
+  @override
+  State<TopPanel> createState() => _TopPanelState();
+}
+
+class _TopPanelState extends State<TopPanel> {
   bool isAdmin() {
-    if (user.type == 'admin') {
+    if (widget.user.type == 'admin') {
       return true;
     } else {
       return false;
     }
+  }
+
+  UserServices userServices = UserServices();
+
+  void logOut() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString('x-auth-token', '');
+    userServices.logOut(context);
+    setState(() {});
   }
 
   @override
@@ -46,9 +63,7 @@ class TopPanel extends StatelessWidget {
                     )
                   : const SizedBox(),
               IconButton(
-                onPressed: () {
-                  // AuthService().signOut(context: context);
-                },
+                onPressed: logOut,
                 icon: const Icon(
                   FontAwesomeIcons.arrowRightFromBracket,
                   color: Colors.white,
@@ -73,7 +88,7 @@ class TopPanel extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    user.name,
+                    widget.user.name,
                     style: const TextStyle(
                         color: primaryWhite,
                         fontWeight: FontWeight.bold,
@@ -85,7 +100,7 @@ class TopPanel extends StatelessWidget {
                         color: primaryBlk.withOpacity(0.2),
                         borderRadius: BorderRadius.circular(5)),
                     child: Text(
-                      user.email,
+                      widget.user.email,
                       style: const TextStyle(color: primaryWhite, fontSize: 15),
                     ),
                   )

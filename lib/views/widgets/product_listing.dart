@@ -9,7 +9,7 @@ import 'package:aceshop/views/product/product_page.dart';
 class ProductListing extends StatelessWidget {
   final Product product;
   // VoidCallback btnFunc = () {};
-  ProductListing({
+  const ProductListing({
     Key? key,
     required this.product,
   }) : super(key: key);

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aceshop/models/usermodel/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -38,17 +39,20 @@ class _MyAppState extends State<MyApp> {
     final AuthService authService = AuthService();
     log('Err chk start \n');
     authService.getUserData(context: context);
+    getSharedPrefs();
     log('Err chk end \n');
     getSharedPrefs();
     super.initState();
   }
 
-  Future<void> getSharedPrefs() async {
+  getSharedPrefs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString(
       'x-auth-token',
     );
     AuthService().getUserData;
+    Provider.of<UserProvider>(context, listen: false).user.token;
+    print('$token' + 'is token');
     setState(() {});
   }
 

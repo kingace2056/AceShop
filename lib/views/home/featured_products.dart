@@ -68,28 +68,25 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
                   child: Text('No product available right now '),
                 ),
               )
-            : Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: prodList?.length == 0
-                      ? const Center(
-                          child: Text('No Products found'),
-                        )
-                      : ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          // physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: prodList?.length,
-                          itemBuilder: ((context, index) {
-                            final prodData = prodList?[index];
-                            return ProductListing(
-                              product: prodData!,
-                            );
-                          }),
-                        ),
-                ),
+            : SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height * 0.35,
+                child: prodList?.length == 0
+                    ? const Center(
+                        child: Text('No Products found'),
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        // physics: NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: prodList?.length,
+                        itemBuilder: ((context, index) {
+                          final prodData = prodList?[index];
+                          return ProductListing(
+                            product: prodData!,
+                          );
+                        }),
+                      ),
               ),
       ],
     );

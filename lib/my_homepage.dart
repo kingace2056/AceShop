@@ -4,6 +4,7 @@ import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/account_page.dart';
+import 'package:aceshop/views/cart/cart.dart';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -24,7 +25,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final _pages = [
     const HomePage(),
     const HomePage(),
-    const MyAccount(),
+    const ShoppingCart(),
     const MyAccount()
   ];
   @override

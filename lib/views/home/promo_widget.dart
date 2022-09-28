@@ -1,5 +1,4 @@
 import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/secrets.dart';
 import 'package:flutter/material.dart';
 
 class PromoWidget extends StatelessWidget {
@@ -10,7 +9,6 @@ class PromoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(10),
       height: MediaQuery.of(context).size.height / 4,
       width: double.infinity,
       decoration: BoxDecoration(
@@ -47,16 +45,16 @@ class PromoWidget extends StatelessWidget {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Row(
-                  children: [
-                    const Text(
+                  children: const [
+                    Text(
                       'Shop Now',
                       style: TextStyle(color: primaryWhite),
                     ),
-                    const Icon(
+                    Icon(
                       Icons.arrow_forward,
                       color: primaryWhite,
                     )

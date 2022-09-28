@@ -16,28 +16,24 @@ class CatrgoryListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                'Category ',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            CategoryPage(category: 'category')));
-                  },
-                  child: const Text(
-                    'See all',
-                    style:
-                        TextStyle(color: primary, fontWeight: FontWeight.w300),
-                  ))
-            ],
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Text(
+              'Category ',
+              style: TextStyle(fontWeight: FontWeight.bold),
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          CategoryPage(category: 'category')));
+                },
+                child: const Text(
+                  'See all',
+                  style: TextStyle(color: primary, fontWeight: FontWeight.w300),
+                ))
+          ],
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),

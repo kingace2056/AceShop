@@ -46,6 +46,7 @@ class ProductListing extends StatelessWidget {
                       color: primaryWhite,
                       image: DecorationImage(
                           alignment: Alignment.center,
+                          fit: BoxFit.fitHeight,
                           image: NetworkImage(
                             product.images[0],
                           ))),

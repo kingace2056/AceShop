@@ -1,3 +1,4 @@
+import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/views/home/category_listview.dart';
 import 'package:aceshop/views/home/featured_products.dart';
 import 'package:aceshop/views/home/offer_widget.dart';
@@ -14,22 +15,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: SingleChildScrollView(
+            padding: defpad,
             child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Padding(
-          padding: EdgeInsets.all(10.0),
-          child: InkWell(
-              onTap: () {
-                Navigator.of(context).pushNamed('/search');
-              },
-              child: SearchHome()),
-        ),
-        offerWidget(),
-        CatrgoryListView(),
-        FeaturedProductView(),
-        PromoWidget()
-      ],
-    )));
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: InkWell(
+                      onTap: () {
+                        Navigator.of(context).pushNamed('/search');
+                      },
+                      child: SearchHome()),
+                ),
+                offerWidget(),
+                CatrgoryListView(),
+                FeaturedProductView(),
+                PromoWidget()
+              ],
+            )));
   }
 }

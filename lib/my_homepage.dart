@@ -46,7 +46,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 size: 30,
               )),
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  selPage = 2;
+                });
+              },
               icon: const Icon(
                 Icons.shopping_cart_outlined,
                 size: 30,

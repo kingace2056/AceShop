@@ -65,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 categoryTemp.keys.toList();
                 Navigator.of(context).pushNamed('/addproduct');
-              },
+                //this is some commit
+              }, 
+
               child: Container(
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height * 0.1,

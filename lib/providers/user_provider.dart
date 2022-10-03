@@ -1,5 +1,4 @@
-import 'package:aceshop/models/usermodel/user_model.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:aceshop/models/services/user/user_model.dart';
 import 'package:flutter/material.dart';
 
 class UserProvider extends ChangeNotifier {
@@ -17,7 +16,7 @@ class UserProvider extends ChangeNotifier {
   User get user => _user;
 
   void setUser(String user) {
-    _user = userFromJson(user);
+    _user = User.fromJson(user);
     notifyListeners();
   }
 

@@ -1,6 +1,7 @@
 import 'dart:developer';
 
-import 'package:aceshop/models/usermodel/user_model.dart';
+import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/models/services/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,11 +19,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  // SharedPreferences.setMockInitialValues({});
-  runApp(MultiProvider(
-    providers: [ChangeNotifierProvider(create: (context) => UserProvider())],
-    child: const MyApp(),
-  ));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    ),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -39,26 +40,27 @@ class _MyAppState extends State<MyApp> {
     final AuthService authService = AuthService();
     log('Err chk start \n');
     authService.getUserData(context: context);
-    getSharedPrefs();
+    // getSharedPrefs();
     log('Err chk end \n');
-    getSharedPrefs();
+    // getSharedPrefs();
     super.initState();
   }
 
-  getSharedPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString(
-      'x-auth-token',
-    );
-    AuthService().getUserData;
-    Provider.of<UserProvider>(context, listen: false).user.token;
-    print('$token' + 'is token');
-    setState(() {});
-  }
+  // getSharedPrefs() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   String? token = prefs.getString(
+  //     'x-auth-token',
+  //   );
+  //   AuthService().getUserData;
+  //   Provider.of<UserProvider>(context, listen: false).user.token;
+  //   print('$token' + 'is token');
+  //   setState(() {});
+  // }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: snackbarKey,
       debugShowCheckedModeBanner: false,
       title: 'AceShop',
       theme: ThemeData(

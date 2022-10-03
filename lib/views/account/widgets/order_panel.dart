@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:aceshop/models/usermodel/user_model.dart';
+import 'package:aceshop/models/services/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 

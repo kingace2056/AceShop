@@ -1,11 +1,12 @@
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:aceshop/constraints/constraints.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 void showSnackBar(BuildContext context, String text) {
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
+  snackbarKey.currentState?.showSnackBar(SnackBar(content: Text(text)));
 }
 
 Future<List<File>> pickImages() async {

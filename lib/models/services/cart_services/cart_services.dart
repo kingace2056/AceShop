@@ -12,53 +12,19 @@ import 'package:aceshop/constraints/utils.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
 
-class ProductDetailServices {
-  void rateProduct({
-    required BuildContext context,
-    required Product product,
-    required double rating,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    try {
-      http.Response res = await http.post(
-        Uri.parse('$baseUrl/api/rate-product'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          'x-auth-token': userProvider.user.token,
-        },
-        body: jsonEncode({
-          'id': product.id!,
-          'rating': rating,
-        }),
-      );
-
-      httpError(
-          response: res,
-          context: context,
-          onSuccess: () async {
-            showSnackBar(context, 'Successfully rated $rating');
-          });
-    } catch (e) {
-      log('SellProd Error');
-      showSnackBar(context, e.toString());
-    }
-  }
-
-  void addToCart({
+class CartServices {
+  void decreaseFromCart({
     required BuildContext context,
     required Product product,
   }) async {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
     try {
-      http.Response res = await http.post(
-        Uri.parse('$baseUrl/api/add-to-cart'),
+      http.Response res = await http.delete(
+        Uri.parse('$baseUrl/api/remove-from-cart/${product.id}'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
           'x-auth-token': userProvider.user.token,
         },
-        body: jsonEncode({
-          'id': product.id,
-        }),
       );
 
       httpError(

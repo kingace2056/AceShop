@@ -6,7 +6,7 @@ import 'dart:developer';
 import 'package:aceshop/constraints/error_handling.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/constraints/utils.dart';
-import 'package:aceshop/models/usermodel/user_model.dart';
+import 'package:aceshop/models/services/user/user_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
 // import 'package:aceshop/views/home/home.dart';
 import 'package:flutter/material.dart';
@@ -126,11 +126,13 @@ class AuthService {
       if (token == null) {
         prefs.setString('x-auth-token', '');
       }
-      var tokenRes = await http.post(Uri.parse('$baseUrl/tokenIsValid'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8',
-            'x-auth-token': token!
-          });
+      var tokenRes = await http.post(
+        Uri.parse('$baseUrl/tokenIsValid'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'x-auth-token': token!
+        },
+      );
       var response = jsonDecode(tokenRes.body);
       if (response == true) {
         //get user data if token is okay

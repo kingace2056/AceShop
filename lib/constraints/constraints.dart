@@ -22,3 +22,7 @@ const Color labelRed = Color(0xFFFCECEF);
 
 const String loremIps =
     'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie at elit blandit convallis. Phasellus cursus risus et tortor gravida, a suscipit tellus tincidunt. Integer id scelerisque arcu. Aliquam ac ante lacus. Vestibulum maximus tortor sed metus porttitor, ut interdum eros blandit. Mauris pellentesque ultricies cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris gravida congue magna, eget tincidunt elit feugiat at. Pellentesque eu orci non risus interdum lobortis non eu urna. Sed ut auctor ligula. Etiam ut tellus vel mauris tempus interdum a vitae est. Aliquam faucibus, dolor a sollicitudin interdum, purus tellus ullamcorper massa, at condimentum erat tortor sed.';
+
+// snackbars key
+final GlobalKey<ScaffoldMessengerState> snackbarKey =
+    GlobalKey<ScaffoldMessengerState>();

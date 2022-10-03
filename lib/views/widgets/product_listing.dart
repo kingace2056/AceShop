@@ -41,12 +41,14 @@ class ProductListing extends StatelessWidget {
                 child: Container(
                   // height: MediaQuery.of(context).size.height * 0.25,
 
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  // width: MediaQuery.of(context).size.width * 0.35,
+
                   decoration: BoxDecoration(
+                      border: Border.all(color: Colors.white, width: 3),
                       color: primaryWhite,
                       image: DecorationImage(
                           alignment: Alignment.center,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.contain,
                           image: NetworkImage(
                             product.images[0],
                           ))),

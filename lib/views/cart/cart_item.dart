@@ -1,17 +1,43 @@
+import 'package:aceshop/models/services/cart_services/cart_services.dart';
+import 'package:aceshop/models/services/product_model/product_details_services.dart';
+import 'package:aceshop/models/services/product_model/product_model.dart';
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:provider/provider.dart';
 
 class CartItem extends StatefulWidget {
-  const CartItem({super.key});
+  const CartItem({
+    Key? key,
+    required this.index,
+  }) : super(key: key);
+  final int index;
 
   @override
   State<CartItem> createState() => CartItemState();
 }
 
 class CartItemState extends State<CartItem> {
-  int cartCount = 0;
+  int cartCount = 1;
+
+  final ProductDetailServices productDetailServices = ProductDetailServices();
+  final CartServices cartServices = CartServices();
+
+  void increaseQuan(Product product) {
+    productDetailServices.addToCart(context: context, product: product);
+  }
+
+  void decreaseQuan(Product product) {
+    cartServices.decreaseFromCart(context: context, product: product);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final prodCart = context.watch<UserProvider>().user.cart[widget.index];
+    final product = Product.fromMap(prodCart['product']);
+    final quantity = prodCart['quantity'];
+
     return Column(
       children: [
         Row(
@@ -23,9 +49,9 @@ class CartItemState extends State<CartItem> {
               width: MediaQuery.of(context).size.height * 0.11,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  image: const DecorationImage(
+                  image: DecorationImage(
                       fit: BoxFit.cover,
-                      image: NetworkImage('https://picsum.photos/200/300'))),
+                      image: NetworkImage(product.images[0]))),
             ),
             const SizedBox(
               width: 2,
@@ -71,17 +97,13 @@ class CartItemState extends State<CartItem> {
                           children: [
                             IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    cartCount--;
-                                  });
+                                  decreaseQuan(product);
                                 },
                                 icon: Icon(Icons.remove)),
-                            Text('$cartCount'),
+                            Text('$quantity'),
                             IconButton(
                                 onPressed: () {
-                                  setState(() {
-                                    cartCount++;
-                                  });
+                                  increaseQuan(product);
                                 },
                                 icon: Icon(Icons.add)),
                           ],

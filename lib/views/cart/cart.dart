@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/models/services/auth_service.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
@@ -27,6 +29,7 @@ class _ShoppingCartState extends State<ShoppingCart> {
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context).user;
+    List cartItems = user.cart;
     return user.token == '' || user.token == null
         ? const AccountNotLoggedIn()
         : SingleChildScrollView(
@@ -59,9 +62,9 @@ class _ShoppingCartState extends State<ShoppingCart> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 3,
+                  itemCount: user.cart.length,
                   itemBuilder: (BuildContext context, int index) {
-                    return const CartItem();
+                    return CartItem(index: index);
                   },
                 ),
                 Column(

@@ -54,6 +54,10 @@ class _ProductPageState extends State<ProductPage> {
     }
   }
 
+  void addToCart() {
+    productDetailServices.addToCart(context: context, product: widget.product);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -153,25 +157,28 @@ class _ProductPageState extends State<ProductPage> {
               width: 20,
             ),
             Expanded(
-              child: Container(
-                  // margin: EdgeInsets.only(left: 10, right: 10),
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  height: 60,
-                  // width: MediaQuery.of(context).size.width / 2,
-                  decoration: BoxDecoration(
-                    color: primary,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'Add To Cart',
-                        style: TextStyle(color: Colors.white, fontSize: 17),
-                      ),
-                    ],
-                  )),
+              child: InkWell(
+                onTap: addToCart,
+                child: Container(
+                    // margin: EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    height: 60,
+                    // width: MediaQuery.of(context).size.width / 2,
+                    decoration: BoxDecoration(
+                      color: primary,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          'Add To Cart',
+                          style: TextStyle(color: Colors.white, fontSize: 17),
+                        ),
+                      ],
+                    )),
+              ),
             ),
           ],
         ),

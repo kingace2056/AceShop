@@ -1,11 +1,10 @@
 import 'dart:developer';
 import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/account/account_page.dart';
 import 'package:aceshop/views/cart/cart.dart';
-
+import 'package:aceshop/views/wishlist/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int selPage = 0;
   final _pages = [
     const HomePage(),
-    const HomePage(),
+    const WishListPage(),
     const ShoppingCart(),
     const MyAccount()
   ];
@@ -57,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ))
         ],
       ),
-      body: _pages[selPage],
+      body: _pages[user.token == '' || user.token == null ? 3 : selPage],
       floatingActionButton: user.type == 'admin'
           ? ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -66,8 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 categoryTemp.keys.toList();
                 Navigator.of(context).pushNamed('/addproduct');
                 //this is some commit
-              }, 
-
+              },
               child: Container(
                 alignment: Alignment.center,
                 height: MediaQuery.of(context).size.height * 0.1,

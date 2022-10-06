@@ -158,7 +158,11 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Expanded(
               child: InkWell(
-                onTap: addToCart,
+                onTap: () {
+                  addToCart;
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('Added to cart')));
+                },
                 child: Container(
                     // margin: EdgeInsets.only(left: 10, right: 10),
                     padding: const EdgeInsets.only(left: 10, right: 10),

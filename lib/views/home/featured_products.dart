@@ -17,6 +17,16 @@ class FeaturedProductView extends StatefulWidget {
 class _FeaturedProductViewState extends State<FeaturedProductView> {
   List<Product>? prodList;
   HomeServices homeServices = HomeServices();
+  List cateList = [
+    'Foods',
+    'Gift',
+    'Fashion',
+    'Sports',
+    'Lifestyle',
+    'Gadget',
+    'Electronics',
+    'Souvenir'
+  ];
   @override
   void initState() {
     // TODO: implement initState
@@ -27,7 +37,7 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
   fetchCategoryProd() async {
     prodList = await homeServices.fetchCagegoryProds(
       context: context,
-      category: 'Electronics',
+      category: cateList[DateTime.now().second % 8],
     );
     setState(() {});
   }
@@ -71,7 +81,7 @@ class _FeaturedProductViewState extends State<FeaturedProductView> {
             : SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.35,
-                child: prodList?.length == 0
+                child: prodList!.isEmpty
                     ? const Center(
                         child: Text('No Products found'),
                       )

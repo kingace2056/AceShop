@@ -16,7 +16,7 @@ class ProductListing extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = Provider.of<UserProvider>(context).user;
+    // final user = Provider.of<UserProvider>(context).user;
     return InkWell(
       onTap: () {
         Navigator.of(context).push(MaterialPageRoute(

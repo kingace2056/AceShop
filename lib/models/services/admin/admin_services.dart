@@ -48,6 +48,7 @@ class AdminServices {
           ),
           headers: {
             'Content-Type': 'application/json; charset=UTF-8',
+            "Access-Control-Allow-Origin": "*",
             'x-auth-token': user.token
           },
           body: product.toJson());
@@ -85,6 +86,7 @@ class AdminServices {
       http.Response res =
           await http.get(Uri.parse('$baseUrl/admin/get-products'), headers: {
         'Content-Type': 'application/json; charset=UTF-8',
+        "Access-Control-Allow-Origin": "*",
         'x-auth-token': userProvider.user.token,
       });
       httpError(
@@ -123,6 +125,7 @@ class AdminServices {
         ),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
           'x-auth-token': userProvider.user.token,
         },
       );

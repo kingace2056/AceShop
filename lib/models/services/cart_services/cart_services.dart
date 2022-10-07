@@ -23,6 +23,7 @@ class CartServices {
         Uri.parse('$baseUrl/api/remove-from-cart/${product.id}'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
           'x-auth-token': userProvider.user.token,
         },
       );

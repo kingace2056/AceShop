@@ -24,6 +24,7 @@ class ProductDetailServices {
         Uri.parse('$baseUrl/api/rate-product'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({
@@ -54,6 +55,7 @@ class ProductDetailServices {
         Uri.parse('$baseUrl/api/add-to-cart'),
         headers: {
           'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
           'x-auth-token': userProvider.user.token,
         },
         body: jsonEncode({

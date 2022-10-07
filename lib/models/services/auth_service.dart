@@ -130,6 +130,7 @@ class AuthService {
         Uri.parse('$baseUrl/tokenIsValid'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
+          "Access-Control-Allow-Origin": "*",
           'x-auth-token': token!
         },
       );
@@ -142,6 +143,7 @@ class AuthService {
             ),
             headers: <String, String>{
               'Content-Type': 'application/json; charset=UTF-8',
+              "Access-Control-Allow-Origin": "*",
               'x-auth-token': token
             });
         var userProvider = Provider.of<UserProvider>(context, listen: false);

@@ -94,15 +94,12 @@ class AuthService {
                 context: (context),
                 builder: (context) => AlertDialog(
                       title: const Text('Successfully logged in'),
-                      content: Column(
-                        children: [],
-                      ),
                       actions: [
                         TextButton(
                             onPressed: () {
                               print(User);
 
-                              Navigator.of(context).pushReplacementNamed('/');
+                              Navigator.of(context).popAndPushNamed('/');
                             },
                             child: const Text('Start Shopping !!!'))
                       ],

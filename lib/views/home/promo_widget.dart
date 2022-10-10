@@ -1,4 +1,5 @@
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/device_check.dart';
 import 'package:flutter/material.dart';
 
 class PromoWidget extends StatelessWidget {
@@ -10,7 +11,9 @@ class PromoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: MediaQuery.of(context).size.height / 4,
-      width: double.infinity,
+      width: DeviceCheck().isMobile(context: context)
+          ? double.infinity
+          : MediaQuery.of(context).size.width / 2,
       decoration: BoxDecoration(
           color: secGreen, borderRadius: BorderRadius.circular(10)),
       child: Stack(children: [
@@ -63,8 +66,9 @@ class PromoWidget extends StatelessWidget {
               ],
             )),
         Positioned(
-          right: 3,
+          right: 1,
           top: 0,
+          bottom: 0,
           child: Container(
             height: MediaQuery.of(context).size.height * 0.3,
             width: MediaQuery.of(context).size.width * 0.5,

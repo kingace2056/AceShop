@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:aceshop/constraints/catrgories_temp.dart';
 import 'package:aceshop/constraints/constraints.dart';
+import 'package:aceshop/constraints/device_check.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/views/category/category_page.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ class CatrgoryListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,7 +41,9 @@ class CatrgoryListView extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.13,
+            height: DeviceCheck().isMobile(context: context)
+                ? MediaQuery.of(context).size.height * 0.13
+                : MediaQuery.of(context).size.height * 0.19,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 // physics: NeverScrollableScrollPhysics(),
@@ -58,11 +62,15 @@ class CatrgoryListView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Container(
-                            width: 60,
-                            height: 60,
+                            width: DeviceCheck().isMobile(context: context)
+                                ? MediaQuery.of(context).size.height * 0.09
+                                : MediaQuery.of(context).size.height / 10,
+                            height: DeviceCheck().isMobile(context: context)
+                                ? MediaQuery.of(context).size.height * 0.09
+                                : MediaQuery.of(context).size.height / 10,
                             padding: EdgeInsets.all(8),
                             margin: EdgeInsets.only(
-                                top: 8, bottom: 8, left: 0, right: 8),
+                                top: 5, bottom: 5, left: 0, right: 8),
                             decoration: BoxDecoration(
                                 color: colorList[index].withOpacity(0.3),
                                 borderRadius: BorderRadius.circular(8)),

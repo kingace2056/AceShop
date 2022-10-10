@@ -109,8 +109,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 20,
                       ),
                       TextFormField(
+                        onFieldSubmitted: (value) {
+                          setState(() {
+                            submitted = true;
+                          });
+                          if (_formKey.currentState!.validate()) {
+                            signIn();
+                          }
+                        },
                         obscureText: obsq,
-                        onChanged: ((value) => setState(() => _email)),
+                        onChanged: ((value) => setState(() => _pass)),
                         controller: _pwcontroller,
                         decoration: InputDecoration(
                           errorText:
@@ -146,6 +154,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (value) {
                           if (value == null) {
                             return 'Password can\'t be empty';
+                          } else {
+                            return null;
                           }
                         },
                       ),

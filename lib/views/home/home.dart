@@ -13,25 +13,23 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: SingleChildScrollView(
-            padding: defpad,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: InkWell(
-                      onTap: () {
-                        Navigator.of(context).pushNamed('/search');
-                      },
-                      child: SearchHome()),
-                ),
-                offerWidget(),
-                CatrgoryListView(),
-                FeaturedProductView(),
-                PromoWidget()
-              ],
-            )));
+    return SingleChildScrollView(
+        padding: defpad,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            InkWell(
+                onTap: () {
+                  Navigator.of(context).pushNamed('/search');
+                },
+                child: SearchHome()),
+            offerWidget(),
+            CatrgoryListView(),
+            FeaturedProductView(),
+            PromoWidget()
+          ],
+        ));
   }
 }

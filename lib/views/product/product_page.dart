@@ -1,21 +1,16 @@
-import 'dart:developer';
-
-import 'package:aceshop/models/services/cart_services/cart_services.dart';
-import 'package:aceshop/views/product/rate_product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
-
 import 'package:aceshop/constraints/constraints.dart';
-import 'package:aceshop/constraints/product_details_temp.dart';
+import 'package:aceshop/models/services/cart_services/cart_services.dart';
 import 'package:aceshop/models/services/product_model/product_details_services.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/home/featured_products.dart';
 import 'package:aceshop/views/product/name_rate_panel.dart';
 import 'package:aceshop/views/product/prod_description.dart';
+import 'package:aceshop/views/product/rate_product.dart';
 import 'package:aceshop/views/product/review_panel.dart';
 import 'package:aceshop/views/product/seller_badge.dart';
 

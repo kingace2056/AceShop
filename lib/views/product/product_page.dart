@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:aceshop/models/services/cart_services/cart_services.dart';
 import 'package:aceshop/views/product/rate_product.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   final ProductDetailServices productDetailServices = ProductDetailServices();
+  final CartServices cartServices = CartServices();
   double avgRating = 0;
   double myRating = 0;
 
@@ -54,8 +56,8 @@ class _ProductPageState extends State<ProductPage> {
     }
   }
 
-  void addToCart() {
-    productDetailServices.addToCart(context: context, product: widget.product);
+  void addToCart(Product product) {
+    cartServices.addToCart(context: context, product: product);
   }
 
   @override
@@ -70,7 +72,7 @@ class _ProductPageState extends State<ProductPage> {
         child: Column(
           children: [
             CarouselSlider.builder(
-              itemCount: productDemo.length,
+              itemCount: widget.product.images.length,
 
               itemBuilder: (context, index, realIndex) {
                 return Container(
@@ -79,7 +81,7 @@ class _ProductPageState extends State<ProductPage> {
                       image: DecorationImage(
                           fit: BoxFit.contain,
                           image: NetworkImage(
-                            widget.product.images[0],
+                            widget.product.images[index],
                           ))),
                 );
               },
@@ -158,8 +160,8 @@ class _ProductPageState extends State<ProductPage> {
             ),
             Expanded(
               child: InkWell(
-                onTap: () {
-                  addToCart;
+                onTap: () async {
+                  addToCart(widget.product);
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('Added to cart')));
                 },

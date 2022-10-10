@@ -44,38 +44,4 @@ class ProductDetailServices {
       showSnackBar(context, e.toString());
     }
   }
-
-  void addToCart({
-    required BuildContext context,
-    required Product product,
-  }) async {
-    final userProvider = Provider.of<UserProvider>(context, listen: false);
-    try {
-      http.Response res = await http.post(
-        Uri.parse('$baseUrl/api/add-to-cart'),
-        headers: {
-          'Content-Type': 'application/json; charset=UTF-8',
-          "Access-Control-Allow-Origin": "*",
-          'x-auth-token': userProvider.user.token,
-        },
-        body: jsonEncode({
-          'id': product.id,
-        }),
-      );
-
-      httpError(
-          response: res,
-          context: context,
-          onSuccess: () async {
-            User user =
-                userProvider.user.copyWith(cart: jsonDecode(res.body)['cart']);
-
-            userProvider.setUserFromModel(user);
-            print('Success');
-          });
-    } catch (e) {
-      log('SellProd Error');
-      showSnackBar(context, e.toString());
-    }
-  }
 }

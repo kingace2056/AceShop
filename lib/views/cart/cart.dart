@@ -41,8 +41,8 @@ class _ShoppingCartState extends State<ShoppingCart> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
-                      'My Cart (3)',
+                    Text(
+                      'My Cart (${user.cart.length})',
                       style: TextStyle(
                           color: primaryBlk,
                           fontSize: 15,

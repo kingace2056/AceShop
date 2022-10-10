@@ -25,7 +25,7 @@ class CartItemState extends State<CartItem> {
   final CartServices cartServices = CartServices();
 
   void increaseQuan(Product product) {
-    productDetailServices.addToCart(context: context, product: product);
+    cartServices.addToCart(context: context, product: product);
   }
 
   void decreaseQuan(Product product) {

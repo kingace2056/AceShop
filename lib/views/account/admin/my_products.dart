@@ -2,6 +2,7 @@ import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/models/services/product_model/product_model.dart';
 import 'package:aceshop/models/services/admin/admin_services.dart';
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:aceshop/views/widgets/loader.dart';
 import 'package:aceshop/views/widgets/product_listing.dart';
 import 'package:flutter/material.dart';
@@ -18,12 +19,23 @@ class MyProds extends StatefulWidget {
 class _MyProdsState extends State<MyProds> {
   final AdminServices adminServices = AdminServices();
   List<Product>? products;
+  double avgRating = 0;
 
   @override
   void initState() {
     // TODO: implement initState
     getProductList();
     super.initState();
+  }
+
+  getRating(Product product) {
+    double totalRating = 0;
+    for (int i = 0; i < product.rating!.length; i++) {
+      if (totalRating != 0) {
+        avgRating = totalRating / product.rating!.length;
+      }
+    }
+    return avgRating;
   }
 
   getProductList() async {
@@ -131,13 +143,14 @@ class _MyProdsState extends State<MyProds> {
                                       width: 2,
                                     ),
                                     Text(
-                                      '2',
+                                      getRating(products![index])
+                                          .toStringAsFixed(2),
                                       style: const TextStyle(fontSize: 13),
                                     ),
-                                    Text(
-                                        // '  ${ * 10 + 3 + randIndex * 2} Reviews',
-                                        'xx reviews',
-                                        style: const TextStyle(fontSize: 13)),
+                                    // Text(
+                                    //     // '  ${ * 10 + 3 + randIndex * 2} Reviews',
+                                    //     'xx reviews',
+                                    //     style: const TextStyle(fontSize: 13)),
                                     const Spacer(),
                                     IconButton(
                                         onPressed: () {

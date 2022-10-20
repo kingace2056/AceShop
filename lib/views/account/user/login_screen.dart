@@ -4,8 +4,11 @@ import 'package:aceshop/controllers/text_controller.dart';
 import 'package:aceshop/constraints/constraints.dart';
 import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/models/services/auth_service.dart';
+import 'package:aceshop/providers/user_provider.dart';
+import 'package:aceshop/views/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -121,8 +124,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         onChanged: ((value) => setState(() => _pass)),
                         controller: _pwcontroller,
                         decoration: InputDecoration(
-                          errorText:
-                              submitted ? 'Password cant be empty' : null,
                           suffixIcon: IconButton(
                             onPressed: () {
                               setState(() {
@@ -152,8 +153,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         validator: (value) {
-                          if (value == null) {
+                          if (value == null ||
+                              value.isEmpty ||
+                              value.length == 0) {
                             return 'Password can\'t be empty';
+                          } else if (value.length < 7) {
+                            return 'Password must be at least 6 characters';
                           } else {
                             return null;
                           }
@@ -177,11 +182,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         setState(() {
                           submitted = true;
                         });
+
                         if (_formKey.currentState!.validate()) {
                           signIn();
+                          
                         }
                       },
-                      child: Text('Sign In'),
+                      child: submitted == false ? Text('Sign In') : Loader(),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: primary,
                         foregroundColor: primaryWhite,

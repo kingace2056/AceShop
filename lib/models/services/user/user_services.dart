@@ -13,7 +13,7 @@ class UserServices {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
       await sharedPreferences.setString('x-auth-token', '');
-      Provider.of<UserProvider>(context, listen: false).user.token == '';
+      Provider.of<UserProvider>(context, listen: false).user.token = '';
       print(Provider.of<UserProvider>(context, listen: false).user.token +
           'is the token \n **** \n');
       Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);

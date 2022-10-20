@@ -8,6 +8,7 @@ import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/constraints/utils.dart';
 import 'package:aceshop/models/services/user/user_model.dart';
 import 'package:aceshop/providers/user_provider.dart';
+import 'package:aceshop/views/widgets/loader.dart';
 // import 'package:aceshop/views/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -68,7 +69,8 @@ class AuthService {
   void signInUser({
     required BuildContext context,
     required String email,
-    required String password,
+    required String password, 
+    
   }) async {
     try {
       http.Response res = await http.post(
@@ -78,18 +80,24 @@ class AuthService {
           'Content-Type': 'application/json; charset=UTF-8'
         },
       );
+
       log('${res.statusCode}is response code');
 
       httpError(
           response: res,
           context: context,
           onSuccess: () async {
+            res.body == '' ? const Loader() : null;
             SharedPreferences prefs = await SharedPreferences.getInstance();
             Provider.of<UserProvider>(context, listen: false).setUser(res.body);
 
             prefs.setString('x-auth-token', jsonDecode(res.body)['token']);
 
             log('this is the token: ${jsonDecode(res.body)['token']}');
+
+            // //// this was placed here from showDialog
+            // Navigator.of(context).popAndPushNamed('/');
+
             showDialog(
                 context: (context),
                 builder: (context) => AlertDialog(
@@ -97,8 +105,6 @@ class AuthService {
                       actions: [
                         TextButton(
                             onPressed: () {
-                              print(User);
-
                               Navigator.of(context).popAndPushNamed('/');
                             },
                             child: const Text('Start Shopping !!!'))
@@ -106,6 +112,7 @@ class AuthService {
                     ));
           });
     } catch (e) {
+      print(e.toString() + ' this is error loolll');
       showSnackBar(context, e.toString());
     }
   }

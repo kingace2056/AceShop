@@ -3,8 +3,10 @@ import 'package:aceshop/constraints/secrets.dart';
 import 'package:aceshop/models/services/auth_service.dart';
 import 'package:aceshop/models/services/user/user_services.dart';
 import 'package:aceshop/models/services/user/user_model.dart';
+import 'package:aceshop/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TopPanel extends StatefulWidget {
@@ -33,6 +35,7 @@ class _TopPanelState extends State<TopPanel> {
   void logOut() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString('x-auth-token', '');
+    Provider.of<UserProvider>(context, listen: false).user.token = '';
     userServices.logOut(context);
     setState(() {});
   }
